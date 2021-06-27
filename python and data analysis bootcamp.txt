@@ -1,0 +1,40 @@
+import pandas as pd 
+import numpy as nd 
+
+df = pd.DataFrame(pd.read.csv('/content/train (1).csv'))
+df.head()
+
+df.shape[0] 
+
+df.isnull().sum()
+
+x = df.isnull().sum()
+drop_col = x[x>(35/100 * df.shape[0])]
+drop_col
+
+drop_col.index
+df.drop(drop_col.index, axis=1, inplace=True)
+df.isnull().sum()
+
+df.groupby(['Alone'])['Survived'].mean()
+df[['Alone', 'Fare']].corr()
+
+df.fillna(df.mean(), inplace = True)
+df.isnull().sum()
+
+df['Embraked'].described()
+
+df['Embraked'].fillna('S',inplace=True)
+
+df.isnull().sum()
+
+df.corr()
+
+df.groupby(['Embraked'])['Survived'].mean()
+df['Alone'] = [0 if df['FamilySize'][i]>0 else 1 for i in df.index]
+df.head()
+
+df['FamilySize'] = df['SibSp'] + df['parch']
+df.drop(['SibSp', 'Parch'], axis=1, inplace=true)
+df.corr()
+
